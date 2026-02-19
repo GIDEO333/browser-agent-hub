@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "stealth-browser": {
+      "command": "/GANTI_INI/stealth-browser-mcp/venv/bin/python",
+      "args": ["/GANTI_INI/stealth-browser-mcp/src/server.py"],
+      "_layer": "1 - Stealth",
+      "_note": "Ganti /GANTI_INI dengan absolute path ke folder stealth-browser-mcp kamu"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "chrome-devtools-mcp@latest",
+        "--browser-url=http://127.0.0.1:9222",
+        "--no-usage-statistics",
+        "-y"
+      ],
+      "_layer": "2 - Existing Session",
+      "_note": "Aktif hanya saat Chrome sudah launch via scripts/chrome-launch.sh"
+    }
+  }
+}
