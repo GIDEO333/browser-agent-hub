@@ -18,7 +18,7 @@ read -r
 # --- Deteksi OS ---
 if [[ "$OSTYPE" == "darwin"* ]]; then
     CHROME_BIN="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-    PROFILE_DIR="$HOME/Library/Application Support/Google/Chrome"
+    PROFILE_DIR="$HOME/Library/Application Support/Chrome-AI-CDP"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # Coba beberapa binary name yang umum
     if command -v google-chrome &> /dev/null; then
@@ -46,12 +46,12 @@ fi
 
 # --- Launch Chrome ---
 echo "🚀 Launching Chrome dengan CDP..."
-echo "   Profile: $PROFILE_DIR"
-echo "   Debug Port: 9222"
+echo "   Profile: $PROFILE_DIR (automation-only, terpisah dari Chrome harian)"
+echo "   Debug Port: 9333"
 echo ""
 
 "$CHROME_BIN" \
-    --remote-debugging-port=9222 \
+    --remote-debugging-port=9333 \
     --user-data-dir="$PROFILE_DIR" \
     --profile-directory="Default" \
     --no-first-run \
@@ -63,22 +63,23 @@ echo "⏳ Menunggu Chrome siap..."
 sleep 3
 
 # --- Verifikasi ---
-if curl -s http://localhost:9222/json/version > /dev/null 2>&1; then
-    echo "✅ Chrome berhasil launch di port 9222!"
+if curl -s http://localhost:9333/json/version > /dev/null 2>&1; then
+    echo "✅ Chrome berhasil launch di port 9333!"
     echo ""
     echo "ℹ️  Info:"
-    curl -s http://localhost:9222/json/version | python3 -m json.tool 2>/dev/null || \
-    curl -s http://localhost:9222/json/version
+    curl -s http://localhost:9333/json/version | python3 -m json.tool 2>/dev/null || \
+    curl -s http://localhost:9333/json/version
     echo ""
     echo "⚠️  SECURITY REMINDER:"
-    echo "   - Port 9222 terbuka dan bisa diakses oleh proses lain di mesin ini"
+    echo "   - Port 9333 terbuka dan bisa diakses oleh proses lain di mesin ini"
+    echo "   - Profile ini TERPISAH dari Chrome harian Anda"
     echo "   - Jangan buka banking atau password manager sekarang"
     echo "   - Tutup Chrome ini setelah selesai menggunakan Layer 2"
     echo ""
     echo "📋 Untuk AI Agent (Cursor/Antigravity):"
     echo "   chrome-devtools MCP server sudah bisa connect ke session kamu"
 else
-    echo "❌ Chrome tidak berhasil start atau port 9222 tidak accessible"
+    echo "❌ Chrome tidak berhasil start atau port 9333 tidak accessible"
     echo "   Pastikan tidak ada Chrome lain yang berjalan"
     echo "   Coba tutup semua Chrome dan jalankan script ini lagi"
     exit 1

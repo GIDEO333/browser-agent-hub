@@ -35,7 +35,7 @@ Gunakan saat:
 - Butuh intercept network request dari tab yang aktif
 
 Jangan gunakan saat:
-- Chrome belum dilaunch dengan `--remote-debugging-port=9222`
+- Chrome belum dilaunch dengan `--remote-debugging-port=9333`
 - Kamu sedang di situs sensitif (banking, password manager)
 
 ---
@@ -63,7 +63,7 @@ START: Ada task browser?
   ↓
 Q1: Task butuh AKUN YANG SUDAH LOGIN?
   YES:
-    → Cek: apakah port 9222 aktif? (curl http://localhost:9222/json/version)
+    → Cek: apakah port 9333 aktif? (curl http://localhost:9333/json/version)
     → Aktif   → Gunakan LAYER 2 (chrome-devtools)
     → Tidak aktif → Beritahu user: "Jalankan scripts/chrome-launch.sh dulu"
   NO: ↓
@@ -141,7 +141,7 @@ python -m browser_use task "..." --model claude-3-5-sonnet-20241022
 | Error | Kemungkinan Penyebab | Solusi |
 |---|---|---|
 | `Chrome not found` | Chrome tidak terinstall | Install Google Chrome |
-| `Cannot connect to port 9222` | Chrome CDP belum launch | Jalankan `scripts/chrome-launch.sh` |
+| `Cannot connect to port 9333` | Chrome CDP belum launch | Jalankan `scripts/chrome-launch.sh` |
 | `Connection refused` | MCP server tidak jalan | Restart IDE, cek mcp.json path |
 | `API key missing` | Env var tidak di-set | Set ANTHROPIC_API_KEY atau GEMINI_API_KEY |
 | `Cloudflare blocked` | Layer 1 masih kena detect | Coba tambah delay, atau ganti user-agent |
@@ -178,7 +178,7 @@ Bandingkan harga dan spesifikasi. Buat tabel perbandingan.
 ### Check Layer 2 Availability
 ```
 Gunakan skill browser-router.
-Sebelum mulai, cek dulu apakah port 9222 aktif:
-curl http://localhost:9222/json/version
+Sebelum mulai, cek dulu apakah port 9333 aktif:
+curl http://localhost:9333/json/version
 Jika aktif, gunakan Layer 2. Jika tidak, beritahu user untuk jalankan chrome-launch.sh.
 ```

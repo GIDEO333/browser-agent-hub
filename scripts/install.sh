@@ -49,11 +49,13 @@ else
     git -C "$INSTALL_DIR/stealth-browser-mcp" pull
 fi
 
-cd "$INSTALL_DIR/stealth-browser-mcp"
-python3 -m venv venv
-source venv/bin/activate
-pip install --quiet -r requirements.txt
-deactivate
+(
+    cd "$INSTALL_DIR/stealth-browser-mcp"
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install --quiet -r requirements.txt
+    deactivate
+)
 
 STEALTH_PYTHON="$INSTALL_DIR/stealth-browser-mcp/venv/bin/python"
 STEALTH_SERVER="$INSTALL_DIR/stealth-browser-mcp/src/server.py"
@@ -62,15 +64,18 @@ echo "✅ Layer 1 ready!"
 echo ""
 
 # --- Layer 2: chrome-devtools-mcp (via npx, tidak perlu install) ---
-echo "📦 [Layer 2] Verifikasi chrome-devtools-mcp..."
-npx chrome-devtools-mcp@latest --help > /dev/null 2>&1 || true
-echo "✅ Layer 2 ready! (gunakan via npx, auto-download saat diperlukan)"
+echo "📦 [Layer 2] chrome-devtools-mcp..."
+command -v npx >/dev/null 2>&1 && echo "✅ Layer 2 ready! (npx $(npx --version), auto-download saat diperlukan)" || echo "❌ npx not found — install Node.js"
 echo ""
 
 # --- Layer 3: browser-use ---
 echo "📦 [Layer 3] Menginstall browser-use..."
-pip3 install --quiet browser-use 2>/dev/null || pip install --quiet browser-use
-echo "✅ Layer 3 ready!"
+TOOLS_VENV="$HOME/tools-venv"
+if [ ! -d "$TOOLS_VENV" ]; then
+    python3 -m venv "$TOOLS_VENV"
+fi
+"$TOOLS_VENV/bin/pip" install --quiet browser-use mem0ai
+echo "✅ Layer 3 + Mem0 ready! (venv: $TOOLS_VENV)"
 echo ""
 
 # --- Generate MCP Config ---
@@ -86,7 +91,7 @@ MCP_CONFIG="{
       \"command\": \"npx\",
       \"args\": [
         \"chrome-devtools-mcp@latest\",
-        \"--browser-url=http://127.0.0.1:9222\",
+        \"--browser-url=http://127.0.0.1:9333\",
         \"--no-usage-statistics\",
         \"-y\"
       ]
@@ -121,6 +126,6 @@ echo ""
 echo "4️⃣  Restart Cursor/Antigravity IDE"
 echo ""
 echo "5️⃣  Test dengan prompt:"
-echo "    \"Gunakan skill browser-router. Cek apakah port 9222 aktif. Lalu screenshot google.com\""
+echo "    \"Gunakan skill browser-router. Cek apakah port 9333 aktif. Lalu screenshot google.com\""
 echo ""
 echo "================================================"

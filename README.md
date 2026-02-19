@@ -38,7 +38,7 @@ browser-agent-hub/
 │   ├── mcp-cursor.json         ← Copy ke ~/.cursor/mcp.json
 │   └── mcp-antigravity.json    ← Copy ke ~/.config/antigravity/mcp.json
 ├── scripts/
-│   ├── chrome-launch.sh        ← Launch Chrome dengan CDP port 9222
+│   ├── chrome-launch.sh        ← Launch Chrome dengan CDP port 9333
 │   └── install.sh              ← Setup semua dependencies
 └── README.md
 ```
@@ -54,8 +54,8 @@ browser-agent-hub/
 ## ⚠️ Security Notes
 
 - Tutup Chrome normal sebelum jalankan `chrome-launch.sh`
-- Jangan buka banking/password manager saat port 9222 aktif
-- Port 9222 hanya aktif saat kamu butuh Layer 2
+- Jangan buka banking/password manager saat port 9333 aktif
+- Port 9333 hanya aktif saat kamu butuh Layer 2
 - Tutup Chrome CDP setelah selesai pakai Layer 2
 
 ## Cara AI Agent Milih Layer

@@ -2,7 +2,9 @@
   "mcpServers": {
     "stealth-browser": {
       "command": "/GANTI_INI/stealth-browser-mcp/venv/bin/python",
-      "args": ["/GANTI_INI/stealth-browser-mcp/src/server.py"],
+      "args": [
+        "/GANTI_INI/stealth-browser-mcp/src/server.py"
+      ],
       "_layer": "1 - Stealth",
       "_note": "Ganti /GANTI_INI dengan absolute path ke folder stealth-browser-mcp kamu"
     },
@@ -10,7 +12,7 @@
       "command": "npx",
       "args": [
         "chrome-devtools-mcp@latest",
-        "--browser-url=http://127.0.0.1:9222",
+        "--browser-url=http://127.0.0.1:9333",
         "--no-usage-statistics",
         "-y"
       ],
